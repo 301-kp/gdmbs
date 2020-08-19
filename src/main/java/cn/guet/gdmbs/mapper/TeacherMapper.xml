@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.guet.gdmbs.mapper.TeacherMapper">
+    <select id="getStudentNum" parameterType="string" resultType="java.lang.Integer">
+        select studentNum from teacher where teacherId=#{teacherId}
+    </select>
+
+    <select id="listTeacherNotLock" parameterType="string" resultType="string">
+        select teacherId from teacher where STATUS='false'
+    </select>
+
+    <select id="selectTeacher" parameterType="string" resultType="Teacher">
+        SELECT teacherId,departmentId,teacherName,studentNum,title,status,content FROM teacher WHERE teacherName=#{teacherName}
+    </select>
+
+    <select id="totalTeacherByStatus" resultType="int">
+        SELECT COUNT(*) FROM teacher WHERE status=#{status}
+    </select>
+
+
+    <select id="totalTeacher" resultType="int">
+        SELECT COUNT(*) FROM teacher
+    </select>
+
+    <select id="listTeacher" parameterType="string" resultType="Teacher">
+        SELECT teacherId,departmentId,teacherName,studentNum,status,content，title FROM teacher
+        <where>
+            <if test="teacherId!=null and teacherId!=''">
+                and teacherId &lt;&gt; #{teacherId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getTeacherName" parameterType="string" resultType="string">
+        SELECT teacherName FROM teacher WHERE teacherId=#{teacherId}
+    </select>
+
+    <delete id="deleteTea">
+        DELETE FROM teacher
+    </delete>
+
+    <select id="getTeacher" parameterType="string" resultType="Teacher">
+        SELECT * FROM teacher WHERE teacherId=#{teacherId}
+    </select>
+
+    <update id="cancleConfirm" parameterType="string">
+        UPDATE teacher SET status='false' WHERE teacherId=#{teacherId}
+    </update>
+
+    <select id="listTeacherByStstua" parameterType="string" resultType="Teacher">
+        SELECT teacherId,teacherName,studentNum,departmentId,title,content,status FROM teacher WHERE status=#{status}
+    </select>
+
+    <select id="listTeacherAll" resultType="Teacher">
+        SELECT teacherId,teacherName,studentNum,departmentId,title,content,status,phone FROM teacher
+    </select>
+
+    <update id="updateTeaNameNum" parameterType="Teacher">
+        UPDATE teacher SET
+        departmentid=(SELECT departmentid FROM department WHERE departmentname=#{departmentName}),
+        teachername=#{teacherName},
+        studentNum=#{studentNum},
+        title=#{title},
+        content=#{content}
+        WHERE teacherid=#{teacherId}
+    </update>
+
+    <update id="resetTeaPassword" parameterType="string">
+        UPDATE teacher SET password=#{teacherId} WHERE teacherId=#{teacherId}
+    </update>
+
+    <delete id="deleteTeacher" parameterType="string">
+        DELETE FROM teacher WHERE teacherId=#{teacherId}
+    </delete>
+
+    <insert id="addTeacher" parameterType="Teacher">
+        INSERT INTO teacher(teacherId,teacherName,password,studentNum,status,departmentid,title,content,phone) VALUES(#{teacherId},#{teacherName},#{password},#{studentNum},#{status},#{departmentid},#{title},#{content},#{phone})
+    </insert>
+
+    <select id="teacherLogin" parameterType="string" resultType="Teacher">
+        SELECT * FROM teacher WHERE teacherid=#{teacherId} AND password=#{password}
+    </select>
+
+    <update id="changePasswd" parameterType="string">
+        UPDATE teacher SET password=#{newpassword} WHERE teacherid=#{teacherId}
+    </update>
+
+    <update id="lock" parameterType="string">
+        UPDATE teacher SET status='true' WHERE teacherid=#{teacherId}
+    </update>
+
+    <select id="getStatus" parameterType="string" resultType="string">
+        SELECT status FROM teacher WHERE teacherid=#{teacherId}
+    </select>
+
+    <select id="getNum" parameterType="string" resultType="int">
+        SELECT studentNum FROM teacher WHERE teacherid=#{teacherId}
+    </select>
+
+    <select id="getOneTeacher" parameterType="string" resultType="Teacher">
+        SELECT * FROM teacher WHERE teacherid=#{teacherId}
+    </select>
+
+    <update id="updateInfo" parameterType="string">
+        UPDATE teacher SET info=#{info} WHERE teacherid=#{teacherId}
+    </update>
+
+    <update id="updatephoneNumber" parameterType="string">
+        UPDATE teacher SET phone=#{phoneNumber} WHERE teacherid=#{teacherId}
+    </update>
+</mapper>

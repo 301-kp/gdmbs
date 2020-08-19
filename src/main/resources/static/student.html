@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="">
+	<meta name="viewport" content="width=device -width,initial-scale=1">
+	<title>学生选课页面</title>
+	<link rel="stylesheet" type="text/css" href="css/student.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="js/jquery-3.3.1.js"></script>
+	<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/student.js"> </script>
+	<script type="text/javascript" src="resources/layui.js"></script>
+	<script type="text/javascript" src="resources/layui.all.js"></script>
+	<link rel="stylesheet" href="resources/css/layui.css" media="all">
+</head>
+<body>
+<div class="bg"></div>
+<div class="bg1"></div>
+<div class="loadingImage">
+	<img src="image/loading2.gif" width="70px">
+</div>
+<!--<div class="message-box">
+
+</div>-->
+<div id="teacher_info" >
+	<p class="message" >教师信息</p>
+	<div id="teacher_info_body" class="teacher_info_body">
+
+	</div>
+</div>
+<div class="container" style="margin:auto;width: 95%">
+	<div class="page-header text-center ">
+		<h4 class="co-p"><strong>毕业设计师生互选系统</strong></h4>
+	</div>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid"  style="background-color: #4B627A;">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target="#slider-left">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand" style="color: rgb(255, 255, 255)">学生登录页面</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right nav-ul-right">
+				<li style="color: white;margin-top:15px;" class="name"></li>
+				<li class="col-xs-6"><a href="#" style="color: white" id="logout">退出登录</a></li>
+			</ul>
+			<div class="navbar-default navbar-collapse collapse" id="slider-left">
+				<ul class="nav">
+					<li class="index-button">
+						<a href="#sub1" data-toggle="collapse">主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页
+							<span class="glyphicon glyphicon-menu-right pull-right"></span>
+						</a>
+					</li>
+					<li class="list-studentInfo-button">
+						<a href="#sub2" data-toggle="collapse">个人信息
+							<span class="glyphicon glyphicon-menu-right pull-right"></span>
+						</a>
+					</li>
+					<li class="list-teacher-button">
+						<a href="#sub2" data-toggle="collapse">选择老师
+							<span class="glyphicon glyphicon-menu-right pull-right"></span>
+						</a>
+					</li>
+					<li class="teacher-choose-button">
+						<a href="#sub3" data-toggle="collapse">查看已选
+							<span class="glyphicon glyphicon-menu-right pull-right"></span>
+						</a>
+					</li>
+					<li class="change-info-button">
+						<a href="#sub3" data-toggle="collapse">修改信息
+							<span class="glyphicon glyphicon-menu-right pull-right"></span>
+						</a>
+					</li>
+					<li class="change-password">
+						<a href="#sub4" data-toggle="collapse">修改密码
+							<span class="glyphicon glyphicon-menu-right pull-right"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="center">
+
+		<!-- ---------------主页 ----------------------->
+		<div class="row list index-page"  >
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="font-weight: 700;">关于毕业设计师生互选的通知</div>
+					<div class="panel-body">
+						<p id="indexContent">
+							毕业设计师生互选系统将于10月30日开启，请学生注意是否已选上指导老师
+							若未选上，请重新选择指导老师，系统将于12月3日关闭。
+						</p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-------------------------- 查看个人信息---------------------------------- -->
+		<div class="row list list-studentInfo"  style="display: none;">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="font-weight: 700;">个人信息</div>
+					<div class="panel-body">
+						<table class="table table-striped table-hover table-bordered layui-table">
+							<thead>
+							<tr>
+								<th>学号</th>
+								<th>姓名</th>
+								<th>专业</th>
+								<th>联系方式</th>
+								<th>状态</th>
+							</tr>
+							</thead>
+							<tbody id="viewInfo">
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!----------------------------- 选择教师--------------------- -->
+		<div class="row list list-teacher"  style="display: none;">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" id="selectTea" style="font-weight: 700;">选择老师</div>
+					<div class="panel-body">
+<!--						教师姓名：&nbsp;<input type="text" class="teaName" name="" >-->
+						<div class="layui-input-block layui-input-item" style="margin-left: 0px;">
+							<div class="layui-inline">
+								<label class="layui-form-label" style="padding: 9px 1px">教师姓名：</label>
+							</div>
+							<div class="layui-inline">
+								<input type="text" name="title" placeholder="输入教师姓名" autocomplete="off" class="layui-input teaName">
+							</div>
+							<div class="layui-inline">
+								<input type="button" class="selectT layui-btn layui-btn-primary" value="查询">
+							</div>
+							<div class="layui-inline">
+								<input type="button" class="selectAllT layui-btn layui-btn-primary" value="查询所有">
+							</div>
+						</div>
+						<table class="table table-striped table-hover table-bordered layui-table" id="selectTb">
+							<thead>
+							<tr>
+								<th style="width: 10%">教师姓名</th>
+								<th style="width: 15%">系别</th>
+								<th style="width: 10%">职称</th>
+								<th style="width: 45%">拟指导内容</th>
+								<th style="width: 10%">已选/容量</th>
+								<th style="width: 10%">操作</th>
+							</tr>
+							</thead>
+							<tbody id="getAllTeacher">
+
+							</tbody>
+						</table>
+						<input type="button" class="buttons first-page list-button" value="首页">
+						<input type="button" class="buttons last-page list-button" value="上一页">
+						<input type="button" class="buttons next-page list-button" value="下一页">
+						<input type="button" class="buttons trailer-page list-button" value="尾页">
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-------------------------- 查看--已选---------------------------------- -->
+		<div class="row list list-student"  style="display: none;">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="font-weight: 700;">查看已选</div>
+					<div class="panel-body">
+						<table id="data-tb01" class="table table-striped table-hover table-bordered layui-table">
+							<thead>
+							<tr>
+								<th>教师姓名</th>
+								<th>系别</th>
+								<th>联系方式</th>
+								<th>已选/容量</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+							</thead>
+							<tbody id="viewChoose">
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-------------------------- 修改手机号---------------------------------- -->
+		<div class="row list change-info" style="display: none;">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="font-weight: 700;">修改手机号码</div>
+					<div class="panel-body">
+						<div class="layui-input-block layui-input-item" style="margin-left: 0px;">
+							<div class="layui-inline">
+								<label class="layui-form-label" style="padding: 9px 1px">手机号码：</label>
+							</div>
+							<div class="layui-inline">
+								<input type="text" name="title" placeholder="输入手机号码" autocomplete="off" class="layui-input phone">
+							</div>
+							<div style="margin-left: 83px;">
+								<br>
+								<input type="button" style="width: 190px" id="changeInfo" class="layui-btn layui-btn-primary" value="修 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;改">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row list change-passwd" style="display: none;">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="font-weight: 700;">修改密码</div>
+					<div class="panel-body">
+						<br>
+						<label class="layui-form-label" style="padding: 9px 1px">旧&nbsp;&nbsp;密&nbsp;&nbsp;码:</label>
+						<div class="layui-input-block">
+							<input style="width: 250px;" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input oldPassword">
+						</div><br>
+						<label class="layui-form-label" style="padding: 9px 1px">新&nbsp;&nbsp;密&nbsp;&nbsp;码:</label>
+						<div class="layui-input-block">
+							<input style="width: 250px" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input newPassword">
+						</div><br>
+						<label class="layui-form-label" style="padding: 9px 1px">确认密码:</label>
+						<div class="layui-input-block">
+							<input style="width: 250px;" type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input confirmPassword">
+						</div><br>
+
+
+						<div class="layui-form-item">
+							<div class="layui-input-block">
+								<button id="change" style="background:#4B627A;" class="layui-btn" lay-submit lay-filter="formDemo">确 认</button>
+								<button id="reset" type="reset" class="layui-btn layui-btn-primary" >重 置</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+</body>
+</html>

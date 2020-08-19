@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.guet.gdmbs.mapper.AdminMapper">
+    <resultMap id="stuAndteaMap" type="Student">
+        <id property="studentid" column="studentid"></id>
+        <result property="studentname" column="studentname"></result>
+        <result property="password" column="password"></result>
+        <result property="phone" column="phone"></result>
+        <result property="status" column="status"></result>
+        <result property="departmentid" column="departmentid"></result>
+
+        <association property="teacher" column="teacherId" javaType="Teacher">
+            <id property="teacherId" column="teacherId"></id>
+            <result property="teacherName" column="teacherName"></result>
+            <result property="password" column="password"></result>
+            <result property="roleId" column="roleId"></result>
+            <result property="studentNum" column="studentNum"></result>
+            <result property="status" column="status"></result>
+        </association>
+    </resultMap>
+
+    <insert id="addBlackList" parameterType="string">
+        INSERT INTO blacklist(studentId,teacherId) VALUES(#{studentId},#{teacherId})
+    </insert>
+
+    <select id="getTeaIdByStuFromBlack" parameterType="string" resultType="string">
+        SELECT teacherId FROM blacklist WHERE studentId=#{studentId}
+    </select>
+
+    <select id="getNum" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM student s,teacher t
+            WHERE t.teacherId=s.teacherId and t.teacherId=#{teacherId} and s.status=#{status}
+    </select>
+
+    <select id="getSelectTea" parameterType="string" resultType="Teacher">
+        SELECT t.teacherId,t.departmentId,t.phone,t.teacherName,t.studentNum FROM student s,teacher t WHERE s.teacherId=t.teacherId AND s.studentId=#{studentId}
+    </select>
+
+    <select id="adminLogin" parameterType="string" resultType="Admin">
+        SELECT * FROM admin WHERE adminid=#{adminId} AND password=#{password}
+    </select>
+
+    <select id="selectStatusByStu" parameterType="string" resultMap="stuAndteaMap">
+        SELECT s.studentId,s.studentName,t.teacherName,s.phone,s.status,s.departmentid
+          FROM (SELECT * FROM student WHERE departmentId=#{departmentId}) s
+            LEFT OUTER JOIN teacher t ON s.teacherId=t.teacherId ORDER BY s.studentid
+    </select>
+
+    <select id="selectStudentBySta" parameterType="string" resultMap="stuAndteaMap">
+        SELECT s.studentId,s.studentName,t.teacherName,s.phone,s.status,s.departmentid
+          FROM (SELECT * FROM student WHERE status=#{status}) s
+            LEFT OUTER JOIN teacher t ON s.teacherId=t.teacherId ORDER BY s.studentid
+    </select>
+
+    <select id="totalStudent" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+          FROM (SELECT * FROM student WHERE departmentId=#{departmentId}) s
+            LEFT OUTER JOIN teacher t ON s.teacherId=t.teacherId
+    </select>
+
+    <select id="totalStudentByStatus" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+          FROM (SELECT * FROM student WHERE status=#{status}) s
+            LEFT OUTER JOIN teacher t ON s.teacherId=t.teacherId
+    </select>
+
+    <select id="getStudentByTeaName" parameterType="string" resultMap="stuAndteaMap">
+        SELECT s.* FROM student s,teacher t WHERE s.teacherId=t.teacherId AND t.teacherName=#{teacherName}
+    </select>
+
+    <update id="addInform" parameterType="string">
+        UPDATE inform SET inform_content=#{content} WHERE inform_obj=#{inform_obj}
+    </update>
+
+    <select id="getPasswordByStu" parameterType="string" resultType="string">
+        SELECT password FROM admin WHERE adminId=#{adminId}
+    </select>
+
+    <update id="changePasswords" parameterType="string">
+        UPDATE admin SET password=#{newPassword} WHERE adminId=#{adminId}
+    </update>
+
+    <delete id="deleteBlacklist">
+        DELETE FROM blacklist
+    </delete>
+
+    <select id="showInfo" parameterType="string" resultType="string">
+        SELECT inform_content FROM inform WHERE inform_obj=#{inform_obj}
+    </select>
+</mapper>

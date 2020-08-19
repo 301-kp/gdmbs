@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>师生互选系统</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/form-elements.css">
+        <link rel="stylesheet" href="css/loginstyle.css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+		<!-- Javascript -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.backstretch.min.js"></script>
+		<script src="js/retina-1.1.0.min.js"></script>
+		<script src="js/scripts.js"></script>
+		<script src="js/newLogin.js"></script>
+		<script type="text/javascript" src="resources/layui.js"></script>
+		<link rel="stylesheet" href="resources/css/layui.css" media="all">
+    </head>
+    <body>
+		<!-- Top menu -->
+		<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="top-navbar-1">
+					<ul class="nav navbar-nav navbar-right">
+
+					</ul>
+				</div>
+			</div>
+		</nav>
+        <!-- Top content -->
+        <div class="top-content">
+            <div class="inner-bg">
+				<!--<div class="col-sm-7 text" style="padding-top: 90px">
+					<h1 style="font-size: 43px;font-weight: 500">桂林电子科技大学毕业设计</h1>
+					<h1>师生互选系统</h1>
+				</div>-->
+                <div class="container" style="width: 90%">
+                    <div class="row" >
+                        <div class="col-sm-7 text" style="padding-top: 60px">
+                            <h1 style="font-size: 48px;font-weight: 600">桂林电子科技大学毕业设计</h1><br>
+							<h1>师生互选系统</h1>
+                        </div>
+                        <div class="col-sm-3 form-box" style="background: rgba(75,98,122,0.9);border-radius:5px;">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>登 录</h3>
+                            		<p>Sign in now</p>
+                        		</div>
+                        		<div class="form-top-right">
+                        		</div>
+                        		<div class="form-top-divider"></div>
+                            </div>
+                            <div class="form-bottom">
+								<div class="form-group">
+									<input type="text" name="form-first-name" placeholder="账号" class="form-first-name form-control" id="id">
+								</div>
+								<div class="form-group">
+									<input type="password" style="height: 50px;font-size: 16px;padding-left: 20px;" name="form-last-name" placeholder="密码" class="form-last-name form-control" id="password">
+								</div>
+								<div class="layui-form-item layui-form">
+									<label class="layui-form-label" style="padding: 15px 3px;color: white;font-size: 16px;">选择身份</label>
+									<div class="layui-input-block">
+										<select name="identity" lay-filter="aihao" id="identity">
+											<option>学生</option>
+											<option>教师</option>
+											<option>管理员</option>
+										</select>
+									</div>
+								</div>
+								<button type="button" class="login btn">登 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+		                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--[if lt IE 10]>
+            <script src="js/placeholder.js"></script>
+        <![endif]-->
+    </body>
+</html>

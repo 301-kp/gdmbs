@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.guet.gdmbs.mapper.StudentMapper">
+    <resultMap id="stuAndteaMap" type="Student">
+        <id property="studentid" column="studentid"></id>
+        <result property="studentname" column="studentname"></result>
+        <result property="password" column="password"></result>
+        <result property="phone" column="phone"></result>
+        <result property="status" column="status"></result>
+        <result property="departmentid" column="departmentid"></result>
+
+        <association property="teacher" column="teacherId" javaType="Teacher">
+            <id property="teacherId" column="teacherId"></id>
+            <result property="teacherName" column="teacherName"></result>
+            <result property="password" column="password"></result>
+            <result property="roleId" column="roleId"></result>
+            <result property="studentNum" column="studentNum"></result>
+            <result property="status" column="status"></result>
+        </association>
+    </resultMap>
+    <update id="selectStudent" parameterType="string">
+        UPDATE student SET teacherId=#{teacherId},status='已选上' WHERE studentId=#{studentId}
+    </update>
+
+    <select id="blackListStudentId" parameterType="string" resultType="string">
+        SELECT studentid FROM student WHERE teacherid=#{teacherId} AND status='待审核'
+    </select>
+
+    <select id="listStudent" parameterType="string" resultType="Student">
+        SELECT * FROM student WHERE teacherid=#{teacherId} AND (status='待审核' OR status='已选上')
+    </select>
+
+    <update id="deleteStudent" parameterType="string">
+        UPDATE student SET status='未选上',note='true' WHERE studentid=#{studentId} AND (status='待审核' OR status='已选上')
+    </update>
+
+    <delete id="deleteOneStudent">
+        DELETE FROM student WHERE studentid=#{studentId}
+    </delete>
+
+    <delete id="deleteStu">
+        DELETE FROM student
+    </delete>
+
+    <update id="updateStu" parameterType="string">
+        UPDATE student SET studentId=#{new_studentId},studentName=#{new_studentName},password=#{new_studentId} WHERE studentId=#{old_studentId}
+    </update>
+
+    <select id="getStudentByName" parameterType="string" resultMap="stuAndteaMap">
+        SELECT * FROM student WHERE studentname=#{studentName}
+    </select>
+
+    <update id="cancleConfirmStu" parameterType="string">
+        UPDATE student SET status='待审核' WHERE teacherId=#{teacherId} AND status='已选上'
+    </update>
+
+    <update id="resetStuPassword" parameterType="string">
+        UPDATE student SET password=#{studentId} WHERE studentId=#{studentId}
+    </update>
+
+    <update id="deleteChildStu" parameterType="string">
+        UPDATE student SET teacherId='',status='未选课' WHERE teacherId=#{teacherId}
+    </update>
+
+    <insert id="addStudent" parameterType="Student">
+        INSERT INTO student(studentId,password,studentname,phone,status,TEACHERID,departmentid) VALUES(#{studentid},#{password},#{studentname},#{phone},#{status},'',#{departmentid})
+    </insert>
+
+    <select id="verifyLogin" parameterType="string" resultType="Student">
+        SELECT * FROM student WHERE studentId=#{studentId} AND password=#{password}
+    </select>
+
+    <select id="getPasswordByStu" parameterType="string" resultType="string">
+        SELECT password FROM student WHERE studentId=#{studentId}
+    </select>
+
+    <update id="selectTeachers" parameterType="string">
+        UPDATE student SET teacherId=#{teacherId},status='待审核' WHERE studentId=#{studentId}
+    </update>
+
+    <update id="deleteTeachers" parameterType="string">
+        UPDATE student SET teacherId='',status='未选课' WHERE studentId=#{studentId}
+    </update>
+
+    <update id="changePasswords" parameterType="string">
+        UPDATE student SET password=#{password} WHERE studentId=#{studentId}
+    </update>
+
+    <select id="getStuStatus" parameterType="string" resultType="string">
+        SELECT status FROM student WHERE studentId=#{studentId}
+    </select>
+
+    <select id="getStuNote" parameterType="string" resultType="string">
+        SELECT note FROM student WHERE studentId=#{studentId}
+    </select>
+
+    <select id="totalSelect" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM student WHERE teacherId=#{teacherId} AND (status='待审核' OR status='已选上') GROUP BY teacherId
+    </select>
+
+    <select id="getTeacherId" parameterType="string" resultType="string">
+        select teacherId from student where (status='待审核' or status='已选上') and studentid=#{studentId}
+    </select>
+
+    <update id="changeInfo" parameterType="string">
+        UPDATE student SET phone=#{phone} WHERE studentId=#{studentId}
+    </update>
+
+    <select id="getSelectTeacher" parameterType="string" resultType="string">
+        select teacherId from student where studentid=#{studentId}
+    </select>
+
+    <select id="listStudentInfo" parameterType="string" resultType="Student">
+        select * from student where studentId=#{studentId}
+    </select>
+</mapper>
